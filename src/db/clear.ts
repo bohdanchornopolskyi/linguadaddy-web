@@ -1,11 +1,11 @@
-import "dotenv/config";
+import 'dotenv/config';
+import { sql } from 'drizzle-orm';
 
-import { database, pg } from "./index";
-import { sql } from "drizzle-orm";
+import { database, pg } from './index';
 
 async function main() {
   const tablesSchema = database._.schema;
-  if (!tablesSchema) throw new Error("Schema not loaded");
+  if (!tablesSchema) throw new Error('Schema not loaded');
 
   await database.execute(sql.raw(`DROP SCHEMA IF EXISTS "drizzle" CASCADE;`));
 

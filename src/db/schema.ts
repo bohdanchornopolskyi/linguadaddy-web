@@ -23,7 +23,7 @@ export const accounts = pgTable('accounts', {
 
 export const sessions = pgTable('session', {
   id: text('id').primaryKey(),
-  userId: text('user_id')
+  userId: uuid('user_id')
     .notNull()
     .references(() => users.id),
   expiresAt: timestamp('expires_at', {

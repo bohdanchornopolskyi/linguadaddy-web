@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { env } from '@/env';
-import * as schema from './schema';
 import { PostgresJsDatabase, drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
+
+import * as schema from './schema';
 
 let database: PostgresJsDatabase<typeof schema>;
 let pg: ReturnType<typeof postgres>;
