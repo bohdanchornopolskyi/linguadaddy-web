@@ -4,3 +4,4 @@ TODO:
 
 - [ ] Add email verification
 - [ ] Add password reset
+- [ ] Add rate limiting
