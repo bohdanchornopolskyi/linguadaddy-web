@@ -13,25 +13,43 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { signInAction } from '@/actions/users';
+import { signUpAction } from '@/actions/users';
 import { useToast } from '@/hooks/use-toast';
+import { signUpSchema } from '@/actions/validation';
 import { useAction } from 'next-safe-action/hooks';
-import { signInSchema } from '@/actions/validation';
+import { redirect } from 'next/navigation';
 
 export default function SignUpPage() {
   const { toast } = useToast();
-  const form = useForm<z.infer<typeof signInSchema>>({
+  const form = useForm<z.infer<typeof signUpSchema>>({
     criteriaMode: 'all',
     mode: 'onChange',
     shouldFocusError: true,
-    resolver: zodResolver(signInSchema),
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: '',
       password: '',
+      passwordConfirmation: '',
     },
   });
 
-  const { execute } = useAction(signInAction, {
+  const {
+    formState: { errors },
+    control,
+    handleSubmit,
+  } = form;
+
+  function convertErrors(val: string | string[] | boolean) {
+    if (typeof val === 'boolean') {
+      return [];
+    }
+    if (typeof val === 'string') {
+      return [val];
+    }
+    return val;
+  }
+
+  const { execute } = useAction(signUpAction, {
     onError(error) {
       toast({
         title: 'Error',
@@ -41,20 +59,21 @@ export default function SignUpPage() {
     onSuccess() {
       toast({
         title: 'Success',
-        description: 'You have successfully signed in',
+        description: 'You have successfully signed up',
       });
+      redirect('/');
     },
   });
 
-  async function onSubmit(data: z.infer<typeof signInSchema>) {
+  async function onSubmit(data: z.infer<typeof signUpSchema>) {
     execute(data);
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-1/3">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-1/3">
         <FormField
-          control={form.control}
+          control={control}
           name="email"
           render={({ field }) => (
             <FormItem>
@@ -72,7 +91,7 @@ export default function SignUpPage() {
         />
 
         <FormField
-          control={form.control}
+          control={control}
           name="password"
           render={({ field }) => (
             <FormItem>
@@ -81,12 +100,31 @@ export default function SignUpPage() {
                 <Input placeholder="********" type="password" {...field} />
               </FormControl>
               <div className="flex flex-col text-sm">
-                <FormMessage />
+                {errors.password?.types?.custom &&
+                  convertErrors(errors.password?.types?.custom).map((error) => (
+                    <span className="text-destructive" key={error}>
+                      {error}
+                    </span>
+                  ))}
               </div>
             </FormItem>
           )}
         />
-        <Button type="submit">Sign In</Button>
+
+        <FormField
+          control={control}
+          name="passwordConfirmation"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password*</FormLabel>
+              <FormControl>
+                <Input placeholder="********" type="password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Sign Up</Button>
       </form>
     </Form>
   );
