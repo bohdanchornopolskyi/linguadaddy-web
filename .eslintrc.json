@@ -31,6 +31,8 @@
     "max-classes-per-file": "off",
     "no-useless-constructor": "off",
     "react/jsx-props-no-spreading": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "import/no-mutable-exports": "off",
+    "react/jsx-no-bind": "off"
   }
 }
