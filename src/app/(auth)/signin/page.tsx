@@ -22,7 +22,7 @@ import { redirect } from 'next/navigation';
 
 export default function SignInPage() {
   const { session } = useSession();
-  if (session?.userId !== null) {
+  if (session) {
     redirect('/dashboard');
   }
   const { toast } = useToast();

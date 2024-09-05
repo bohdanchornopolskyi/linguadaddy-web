@@ -22,7 +22,7 @@ import { useSession } from '@/providers/session-provider';
 
 export default function SignUpPage() {
   const { session } = useSession();
-  if (session?.userId !== null) {
+  if (session) {
     redirect('/dashboard');
   }
   const { toast } = useToast();
