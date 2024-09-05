@@ -18,8 +18,13 @@ import { useToast } from '@/hooks/use-toast';
 import { signUpSchema } from '@/actions/validation';
 import { useAction } from 'next-safe-action/hooks';
 import { redirect } from 'next/navigation';
+import { useSession } from '@/providers/session-provider';
 
 export default function SignUpPage() {
+  const { session } = useSession();
+  if (session?.userId !== null) {
+    redirect('/dashboard');
+  }
   const { toast } = useToast();
   const form = useForm<z.infer<typeof signUpSchema>>({
     criteriaMode: 'all',

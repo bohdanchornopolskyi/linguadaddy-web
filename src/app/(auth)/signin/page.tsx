@@ -17,8 +17,14 @@ import { signInAction } from '@/actions/users';
 import { useToast } from '@/hooks/use-toast';
 import { useAction } from 'next-safe-action/hooks';
 import { signInSchema } from '@/actions/validation';
+import { useSession } from '@/providers/session-provider';
+import { redirect } from 'next/navigation';
 
-export default function SignUpPage() {
+export default function SignInPage() {
+  const { session } = useSession();
+  if (session?.userId !== null) {
+    redirect('/dashboard');
+  }
   const { toast } = useToast();
   const form = useForm<z.infer<typeof signInSchema>>({
     criteriaMode: 'all',
