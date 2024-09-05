@@ -1,10 +1,17 @@
-import { signOutAction } from '@/actions/users';
-import { Button } from '@/components/ui/button';
+'use client';
 
-export default async function SignOut() {
+import { signOutAction } from '@/actions/users';
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+
+export default function SignOut() {
   return (
-    <Button onClick={signOutAction} type="submit" variant="ghost">
+    <DropdownMenuItem
+      className="cursor-pointer border-t border-gray-200"
+      onSelect={async () => {
+        await signOutAction();
+      }}
+    >
       Sign Out
-    </Button>
+    </DropdownMenuItem>
   );
 }
