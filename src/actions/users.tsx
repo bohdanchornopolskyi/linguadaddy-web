@@ -58,24 +58,6 @@ export const signInAction = unauthenticatedAction
     return { id: user.id };
   });
 
-// export async function signInAction(email: string, password: string) {
-//   const user = await getUserByEmail(email);
-
-//   if (!user) {
-//     throw new LoginError();
-//   }
-
-//   const isPasswordCorrect = await verifyPassword(email, password);
-
-//   if (!isPasswordCorrect) {
-//     throw new LoginError();
-//   }
-
-//   await setSession(user.id);
-
-//   return { id: user.id };
-// }
-
 export async function signOutAction() {
   const { session } = await validateRequest();
 
