@@ -4,6 +4,7 @@ import './globals.css';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { Header } from '@/app/_header/header';
 import { Toaster } from '@/components/ui/toaster';
+import { cn } from '@/lib/utils';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -19,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={openSans.className}>
+      <body
+        className={cn(openSans.className, 'min-h-screen w-full flex flex-col')}
+      >
         <ThemeProvider>
           <Header />
           {children}
