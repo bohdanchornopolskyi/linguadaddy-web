@@ -32,5 +32,14 @@ export const sessions = pgTable('session', {
   }).notNull(),
 });
 
+export const profiles = pgTable('profile', {
+  id: uuid('id').primaryKey(),
+  userId: uuid('userId')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  displayName: text('displayName'),
+  image: text('image'),
+});
+
 export type User = typeof users.$inferSelect;
 export type Account = typeof accounts.$inferSelect;
