@@ -23,16 +23,21 @@ export default async function RootLayout({
   const session = await validateRequest();
   return (
     <html lang="en">
-      <body
-        className={cn(openSans.className, 'min-h-screen w-full flex flex-col')}
-      >
-        <ThemeProvider>
-          <SessionProvider value={session}>
-            <Header />
-            {children}
-            <Toaster />
-          </SessionProvider>
-        </ThemeProvider>
+      <body>
+        <div
+          className={cn(
+            openSans.className,
+            'min-h-screen w-full flex flex-col'
+          )}
+        >
+          <ThemeProvider>
+            <SessionProvider value={session}>
+              <Header />
+              {children}
+              <Toaster />
+            </SessionProvider>
+          </ThemeProvider>
+        </div>
       </body>
     </html>
   );
