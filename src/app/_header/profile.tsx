@@ -6,14 +6,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
+import { AvatarFallback } from '@radix-ui/react-avatar';
+import { Avatar as AvatarImage } from '@/app/_header/avatar';
 
 export default function Profile() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage src="/profile.png" />
+          <AvatarImage />
           <AvatarFallback>AA</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>

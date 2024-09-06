@@ -22,7 +22,7 @@ export default async function RootLayout({
 }>) {
   const session = await validateRequest();
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
         <div
           className={cn(
@@ -30,7 +30,12 @@ export default async function RootLayout({
             'min-h-screen w-full flex flex-col'
           )}
         >
-          <ThemeProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
             <SessionProvider value={session}>
               <Header />
               {children}

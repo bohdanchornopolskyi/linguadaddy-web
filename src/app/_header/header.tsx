@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import Profile from '@/app/_header/profile';
 import { SignInButton } from '@/app/_header/signin';
+import { ThemeToggle } from '@/app/_header/themeToggle';
 
 const libre = Libre_Baskerville({ weight: '700', subsets: ['latin'] });
 
@@ -20,7 +21,10 @@ export async function Header() {
           Saas Starter
         </span>
       </Link>
-      {user ? <Profile /> : <SignInButton />}
+      <div className="flex items-center gap-4">
+        <ThemeToggle />
+        {user ? <Profile /> : <SignInButton />}
+      </div>
     </div>
   );
 }
