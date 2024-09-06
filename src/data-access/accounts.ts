@@ -58,3 +58,25 @@ export async function updatePassword(
     })
     .where(and(eq(accounts.userId, userId), eq(accounts.accountType, 'email')));
 }
+
+export async function getAccountByGoogleId(googleId: string) {
+  return database.query.accounts.findFirst({
+    where: eq(accounts.googleId, googleId),
+  });
+}
+
+export async function createAccountWithGoogle(
+  userId: string,
+  googleId: string
+) {
+  const account = await database
+    .insert(accounts)
+    .values({
+      userId,
+      accountType: 'google',
+      googleId,
+    })
+    .onConflictDoNothing()
+    .returning();
+  return account;
+}

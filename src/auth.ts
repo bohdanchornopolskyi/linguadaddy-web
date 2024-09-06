@@ -3,6 +3,8 @@ import { DrizzlePostgreSQLAdapter } from '@lucia-auth/adapter-drizzle';
 import { database } from '@/db';
 import { users, sessions } from '@/db/schema';
 import { cookies } from 'next/headers';
+import { Google } from 'arctic';
+import { env } from '@/env';
 
 const adapter = new DrizzlePostgreSQLAdapter(database, sessions, users);
 
@@ -65,3 +67,9 @@ declare module 'lucia' {
     UserId: string;
   }
 }
+
+export const googleAuth = new Google(
+  env.GOOGLE_CLIENT_ID,
+  env.GOOGLE_CLIENT_SECRET,
+  `${env.HOST_NAME}/api/login/google/callback`
+);

@@ -3,12 +3,15 @@
 import { AvatarImage } from '@/components/ui/avatar';
 import { useTheme } from 'next-themes';
 
-export function Avatar() {
+type AvatarProps = {
+  image?: string | null;
+};
+
+export function Avatar({ image }: AvatarProps) {
   const { theme } = useTheme();
-  return (
-    <AvatarImage
-      className=""
-      src={theme === 'dark' ? '/profile-light.png' : '/profile-dark.png'}
-    />
-  );
+  let profileImage = '/profile-dark.png';
+  if (theme === 'dark') {
+    profileImage = '/profile-light.png';
+  }
+  return <AvatarImage className="" src={image || profileImage} />;
 }

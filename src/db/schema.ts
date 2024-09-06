@@ -33,7 +33,7 @@ export const sessions = pgTable('session', {
 });
 
 export const profiles = pgTable('profile', {
-  id: uuid('id').primaryKey(),
+  id: uuid('id').defaultRandom().primaryKey(),
   userId: uuid('userId')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
@@ -43,3 +43,4 @@ export const profiles = pgTable('profile', {
 
 export type User = typeof users.$inferSelect;
 export type Account = typeof accounts.$inferSelect;
+export type Profile = typeof profiles.$inferSelect;
