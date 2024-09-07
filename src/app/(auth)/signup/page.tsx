@@ -56,7 +56,7 @@ export default function SignUpPage() {
     return val;
   }
 
-  const { execute } = useAction(signUpAction, {
+  const { execute, isPending } = useAction(signUpAction, {
     onError(error) {
       toast({
         title: 'Error',
@@ -134,7 +134,12 @@ export default function SignUpPage() {
               </FormItem>
             )}
           />
-          <Button variant="outline" className="w-full gap-2" type="submit">
+          <Button
+            disabled={isPending}
+            variant="outline"
+            className="w-full gap-2"
+            type="submit"
+          >
             <IconMail />
             Continue with email
           </Button>
