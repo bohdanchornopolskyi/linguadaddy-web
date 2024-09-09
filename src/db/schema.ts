@@ -1,3 +1,4 @@
+import { InferInsertModel } from 'drizzle-orm';
 import { pgEnum, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 export const roleEnum = pgEnum('role', ['member', 'admin']);
@@ -41,6 +42,26 @@ export const profiles = pgTable('profile', {
   image: text('image'),
 });
 
+export const verifyEmailTokens = pgTable('verify_email_tokens', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('userId')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' })
+    .unique(),
+  token: text('token'),
+  tokenExpiresAt: timestamp('tokenExpiresAt', { mode: 'date' }),
+});
+
+export const resetTokens = pgTable('reset_tokens', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('userId')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' })
+    .unique(),
+  token: text('token'),
+  tokenExpiresAt: timestamp('tokenExpiresAt', { mode: 'date' }),
+});
+
 export type User = typeof users.$inferSelect;
 export type Account = typeof accounts.$inferSelect;
-export type Profile = typeof profiles.$inferSelect;
+export type Profile = InferInsertModel<typeof profiles>;

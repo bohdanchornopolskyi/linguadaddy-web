@@ -15,3 +15,7 @@ export const LOGIN_ERROR_MESSAGE = 'Invalid email or password';
 export const RESOURCE_NOT_FOUND_ERROR_MESSAGE = 'Resource not found';
 
 export const INVALID_CREDENTIALS_ERROR_MESSAGE = 'Invalid email or password';
+
+export const TOKEN_LENGTH = 32;
+
+export const TOKEN_TTL = 1000 * 60 * 5;

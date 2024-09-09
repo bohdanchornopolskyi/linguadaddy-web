@@ -2,10 +2,10 @@ import { eq } from 'drizzle-orm';
 import { database } from '@/db';
 import { Profile, profiles } from '@/db/schema';
 
-export async function createProfile({ userId, displayName, image }: Profile) {
+export async function createProfile(data: Profile) {
   const [profile] = await database
     .insert(profiles)
-    .values({ userId, image, displayName })
+    .values(data)
     .onConflictDoNothing()
     .returning();
   return profile;
