@@ -63,7 +63,7 @@ export default function SignInPage() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 w-1/3"
+          className="flex flex-col gap-4 w-1/3"
         >
           <FormField
             control={form.control}
@@ -101,15 +101,24 @@ export default function SignInPage() {
           <Button
             disabled={isPending}
             variant="outline"
-            className="w-full gap-2"
+            className="w-full gap-2 mt-4"
             type="submit"
           >
             <IconMail />
             Continue with email
           </Button>
+          <span className="text-center">
+            Don't have an account?{' '}
+            <Link className="text-blue-500 pl-2 font-medium" href="/signup">
+              Sign up
+            </Link>
+          </span>
         </form>
       </Form>
-      <span className="pt-4">Or</span>
+      <div className="relative pt-4 w-1/3 text-center flex items-center justify-center">
+        <div className="absolute top-1/2 left-0 w-full transform translate-y-[8px] h-[1px] bg-black/15" />
+        <span className="bg-white relative z-10 block w-12">or</span>
+      </div>
       <div className="pt-4 w-1/3">
         <Button asChild size="lg" variant="outline" className="gap-2 w-full">
           <Link href="/api/login/google">
