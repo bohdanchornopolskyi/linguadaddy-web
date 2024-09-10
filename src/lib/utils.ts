@@ -19,9 +19,3 @@ export async function generateRandomToken(length: number) {
 
   return buf.toString('hex').slice(0, length);
 }
-// I don't need it for now but I might in the future
-// export async function createTransaction<T extends typeof database>(
-//   cb: (trx: T) => void
-// ) {
-//   await database.transaction(cb as any);
-// }

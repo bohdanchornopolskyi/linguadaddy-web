@@ -10,7 +10,7 @@ export default async function sendEmail(
   body: ReactNode
 ) {
   const { error } = await resend.emails.send({
-    from: env.EMAIL_FROM,
+    from: `Saas Starter <${env.EMAIL_FROM}>`,
     to: email,
     subject,
     react: body,

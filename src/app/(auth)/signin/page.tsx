@@ -95,6 +95,15 @@ export default function SignInPage() {
                 <div className="flex flex-col text-sm">
                   <FormMessage />
                 </div>
+                <div className="text-right text-xs">
+                  Forgot your password?{' '}
+                  <Link
+                    className="text-blue-500 pl-2 font-medium"
+                    href="/forgot-password"
+                  >
+                    Reset Password
+                  </Link>
+                </div>
               </FormItem>
             )}
           />
