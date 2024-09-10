@@ -30,7 +30,7 @@ export default async function Profile() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end">
         <div className="px-2 border-b border-gray-200 pb-2">
-          {profile ? `Hey, ${profile.displayName}` : 'Hey, guest'}
+          {profile?.displayName ? `Hey, ${profile.displayName}` : 'Hey, guest'}
         </div>
         <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer">Settings</DropdownMenuItem>
