@@ -35,6 +35,7 @@
     "import/no-mutable-exports": "off",
     "react/jsx-no-bind": "off",
     "react/require-default-props": "off",
-    "react/no-unescaped-entities": "off"
+    "react/no-unescaped-entities": "off",
+    "no-restricted-syntax": "off"
   }
 }
