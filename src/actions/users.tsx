@@ -34,7 +34,9 @@ export const signUpAction = unauthenticatedAction
     const user = await createUser(email);
     await createAccount(user.id, password);
 
-    await createProfile({ userId: user.id });
+    const defaultName = email.split('@')[0];
+
+    await createProfile({ userId: user.id, displayName: defaultName });
 
     const token = await createVerifyEmailToken(user.id);
     await sendEmail(

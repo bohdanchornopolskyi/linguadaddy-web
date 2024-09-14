@@ -8,15 +8,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { AvatarFallback } from '@radix-ui/react-avatar';
 import { Avatar as AvatarImage } from '@/app/_header/avatar';
-import { getCurrentUser } from '@/lib/session';
 import { getProfile } from '@/data-access/profiles';
 
-export default async function Profile() {
-  const user = await getCurrentUser();
-  let profile;
-  if (user) {
-    profile = await getProfile(user.id);
-  }
+type ProfileProps = {
+  userId: string;
+};
+
+export default async function Profile({ userId }: ProfileProps) {
+  const profile = await getProfile(userId);
 
   // TODO: add fallback functionality
 
@@ -30,7 +29,7 @@ export default async function Profile() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end">
         <div className="px-2 border-b border-gray-200 pb-2">
-          {profile?.displayName ? `Hey, ${profile.displayName}` : 'Hey, guest'}
+          {profile?.displayName && `Hey, ${profile.displayName}`}
         </div>
         <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer">Settings</DropdownMenuItem>

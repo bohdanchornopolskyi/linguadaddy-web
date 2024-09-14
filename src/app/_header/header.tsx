@@ -23,7 +23,7 @@ export async function Header() {
       </Link>
       <div className="flex items-center gap-4">
         <ThemeToggle />
-        {user ? <Profile /> : <SignInButton />}
+        {user ? <Profile userId={user.id} /> : <SignInButton />}
       </div>
     </div>
   );
