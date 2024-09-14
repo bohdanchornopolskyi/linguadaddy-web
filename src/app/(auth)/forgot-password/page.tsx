@@ -37,6 +37,7 @@ export default function ForgotPassword() {
       toast({
         title: 'Error',
         description: error.error.serverError?.message,
+        variant: 'destructive',
       });
     },
     onSuccess() {

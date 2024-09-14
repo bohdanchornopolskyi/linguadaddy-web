@@ -61,6 +61,7 @@ export default function SignUpPage() {
       toast({
         title: 'Error',
         description: error.error.serverError?.message,
+        variant: 'destructive',
       });
     },
     onSuccess() {

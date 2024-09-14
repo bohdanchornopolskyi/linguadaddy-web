@@ -50,6 +50,7 @@ export default function ResetPasswordPage({
       toast({
         title: 'Error',
         description: error.error.serverError?.message,
+        variant: 'destructive',
       });
     },
     onSuccess() {

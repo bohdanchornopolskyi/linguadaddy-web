@@ -9,4 +9,4 @@ TODO:
 - [ ] Fix profile image fallback
 - [ ] Add profile page where user can update their profile
 - [ ] Start working on subscriptions
-- [ ] Change toast messages to error toasts
+- [x] Change toast messages to error toasts

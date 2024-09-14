@@ -44,6 +44,7 @@ export default function SignInPage() {
       toast({
         title: 'Error',
         description: error.error.serverError?.message,
+        variant: 'destructive',
       });
     },
     onSuccess() {
