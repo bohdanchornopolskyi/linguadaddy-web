@@ -9,6 +9,7 @@ import {
 import { AvatarFallback } from '@radix-ui/react-avatar';
 import { Avatar as AvatarImage } from '@/app/_header/avatar';
 import { getProfile } from '@/data-access/profiles';
+import Link from 'next/link';
 
 type ProfileProps = {
   userId: string;
@@ -32,7 +33,9 @@ export default async function Profile({ userId }: ProfileProps) {
           {profile?.displayName && `Hey, ${profile.displayName}`}
         </div>
         <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer">Settings</DropdownMenuItem>
+        <DropdownMenuItem asChild className="cursor-pointer">
+          <Link href="/settings">Settings</Link>
+        </DropdownMenuItem>
         <SignOut />
       </DropdownMenuContent>
     </DropdownMenu>

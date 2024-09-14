@@ -19,3 +19,12 @@ export const INVALID_CREDENTIALS_ERROR_MESSAGE = 'Invalid email or password';
 export const TOKEN_LENGTH = 32;
 
 export const TOKEN_TTL = 1000 * 60 * 5;
+
+export const MAX_FILE_SIZE = 5000000;
+
+export const ACCEPTED_IMAGE_TYPES = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+];

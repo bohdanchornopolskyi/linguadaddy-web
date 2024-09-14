@@ -10,3 +10,4 @@ TODO:
 - [ ] Add profile page where user can update their profile
 - [ ] Start working on subscriptions
 - [x] Change toast messages to error toasts
+- [ ] Add confetti on successful signup and subscription

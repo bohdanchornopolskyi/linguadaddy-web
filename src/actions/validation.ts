@@ -1,3 +1,4 @@
+import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@/lib/constants';
 import { z } from 'zod';
 
 export const signInSchema = z.object({
@@ -54,6 +55,16 @@ export const signUpSchema = z
     message: 'Passwords do not match',
     path: ['passwordConfirmation'],
   });
+
+export const updateProfileImageSchema = z.object({
+  image: z
+    .instanceof(File)
+    .refine((file) => file.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
+    .refine(
+      (file) => ACCEPTED_IMAGE_TYPES.includes(file.type),
+      'Only .jpg, .jpeg, .png and .webp formats are supported.'
+    ),
+});
 
 export const updateProfileSchema = z.object({
   userId: z.string(),

@@ -11,6 +11,10 @@ export const env = createEnv({
     APPLICATION_NAME: z.string().min(1),
     RESEND_API_KEY: z.string().min(1),
     EMAIL_FROM: z.string().min(1),
+    CLOUDFLARE_ACCOUNT_ID: z.string().min(1),
+    CLOUDFLARE_ACCESS_KEY_ID: z.string().min(1),
+    CLOUDFLARE_SECRET_ACCESS_KEY: z.string().min(1),
+    CLOUDFLARE_BUCKET_NAME: z.string().min(1),
   },
   client: {},
   runtimeEnv: {
@@ -22,5 +26,9 @@ export const env = createEnv({
     APPLICATION_NAME: process.env.APPLICATION_NAME,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     EMAIL_FROM: process.env.EMAIL_FROM,
+    CLOUDFLARE_ACCOUNT_ID: process.env.CLOUDFLARE_ACCOUNT_ID,
+    CLOUDFLARE_ACCESS_KEY_ID: process.env.CLOUDFLARE_ACCESS_KEY_ID,
+    CLOUDFLARE_SECRET_ACCESS_KEY: process.env.CLOUDFLARE_SECRET_ACCESS_KEY,
+    CLOUDFLARE_BUCKET_NAME: process.env.CLOUDFLARE_BUCKET_NAME,
   },
 });
