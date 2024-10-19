@@ -1,7 +1,7 @@
 'use server';
 
 import { signInSchema, signUpSchema } from '@/actions/validation';
-import { lucia, validateRequest } from '@/auth';
+import { invalidateSession, validateRequest } from '@/auth';
 import { createAccount } from '@/data-access/accounts';
 import {
   createVerifyEmailToken,
@@ -21,7 +21,6 @@ import sendEmail from '@/lib/emails';
 import { EmailInUseError, LoginError, PublicError } from '@/lib/errors';
 import { unauthenticatedAction } from '@/lib/safe-action';
 import { setSession } from '@/lib/session';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export const signUpAction = unauthenticatedAction
@@ -76,13 +75,7 @@ export async function signOutAction() {
     redirect('/signin');
   }
 
-  await lucia.invalidateSession(session.id);
-  const sessionCookie = lucia.createBlankSessionCookie();
-  cookies().set(
-    sessionCookie.name,
-    sessionCookie.value,
-    sessionCookie.attributes
-  );
+  await invalidateSession(session.id);
   redirect('/');
 }
 
