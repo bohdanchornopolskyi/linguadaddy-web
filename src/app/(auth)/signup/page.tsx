@@ -17,15 +17,16 @@ import { signUpAction } from '@/actions/users';
 import { useToast } from '@/hooks/use-toast';
 import { signUpSchema } from '@/actions/validation';
 import { useAction } from 'next-safe-action/hooks';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useSession } from '@/providers/session-provider';
 import { IconBrandGoogle, IconMail } from '@tabler/icons-react';
 import Link from 'next/link';
 
 export default function SignUpPage() {
+  const router = useRouter();
   const { session } = useSession();
   if (session) {
-    redirect('/dashboard');
+    router.push('/dashboard');
   }
   const { toast } = useToast();
   const form = useForm<z.infer<typeof signUpSchema>>({
@@ -65,11 +66,7 @@ export default function SignUpPage() {
       });
     },
     onSuccess() {
-      toast({
-        title: 'Success',
-        description: 'You have successfully signed up',
-      });
-      redirect('/');
+      router.push('/confirm-email');
     },
   });
 

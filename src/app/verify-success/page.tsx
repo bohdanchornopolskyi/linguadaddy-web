@@ -1,5 +1,6 @@
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Confetti from '@/components/confetti';
+import { Button } from '@/components/ui/button';
 
 export default function VerifySuccess() {
   return (
@@ -7,6 +8,7 @@ export default function VerifySuccess() {
       <h1 className="text-3xl font-bold">
         Your email has been successfully verified!
       </h1>
+      <Confetti />
       <Button className="text-lg" size="lg">
         <Link href="/signin">Sign in</Link>
       </Button>
