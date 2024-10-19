@@ -1,4 +1,4 @@
-import { InferInsertModel } from 'drizzle-orm';
+import { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import { pgEnum, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 export const roleEnum = pgEnum('role', ['member', 'admin']);
@@ -62,6 +62,7 @@ export const resetTokens = pgTable('reset_tokens', {
   tokenExpiresAt: timestamp('tokenExpiresAt', { mode: 'date' }),
 });
 
-export type User = typeof users.$inferSelect;
+export type User = InferSelectModel<typeof users>;
+export type Session = InferSelectModel<typeof sessions>;
 export type Account = typeof accounts.$inferSelect;
 export type Profile = InferInsertModel<typeof profiles>;

@@ -1,4 +1,4 @@
-This is a SaaS starter kit built with Next.js, Lucia, PostgreSQL, Tailwind CSS, and Drizzle ORM.
+This is a SaaS starter kit built with Next.js, PostgreSQL, Tailwind CSS, and Drizzle ORM.
 
 TODO:
 
