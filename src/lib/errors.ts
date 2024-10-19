@@ -41,8 +41,8 @@ export class TokenExpiredError extends PublicError {
 }
 
 export class LoginError extends PublicError {
-  constructor() {
-    super(INVALID_CREDENTIALS_ERROR_MESSAGE);
+  constructor(message: string) {
+    super(message || INVALID_CREDENTIALS_ERROR_MESSAGE);
     this.name = 'LoginError';
   }
 }

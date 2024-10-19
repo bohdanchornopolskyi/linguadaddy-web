@@ -54,13 +54,13 @@ export const signInAction = unauthenticatedAction
     const user = await getUserByEmail(email);
 
     if (!user) {
-      throw new LoginError();
+      throw new LoginError('User with that email not found');
     }
 
     const isPasswordCorrect = await verifyPassword(email, password);
 
     if (!isPasswordCorrect) {
-      throw new LoginError();
+      throw new LoginError('Password is incorrect');
     }
 
     await setSession(user.id);
