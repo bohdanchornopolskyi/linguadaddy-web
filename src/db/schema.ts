@@ -1,8 +1,20 @@
 import { InferInsertModel, InferSelectModel } from 'drizzle-orm';
-import { pgEnum, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  pgEnum,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+} from 'drizzle-orm/pg-core';
 
 export const roleEnum = pgEnum('role', ['member', 'admin']);
 export const accountTypeEnum = pgEnum('type', ['email', 'google', 'github']);
+export const subscriptionPlans = pgEnum('plans', [
+  'free',
+  'fluent',
+  'polyglot',
+]);
 
 export const users = pgTable('user', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -60,6 +72,28 @@ export const resetTokens = pgTable('reset_tokens', {
     .unique(),
   token: text('token'),
   tokenExpiresAt: timestamp('tokenExpiresAt', { mode: 'date' }),
+});
+
+export const subscriptions = pgTable('subscription', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('userId')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
+  status: text('status', {
+    enum: ['active', 'past_due', 'canceled', 'paused', 'expired'],
+  }).notNull(),
+  plan: subscriptionPlans('plan').notNull(),
+  startDate: timestamp('start_date').notNull(),
+  endDate: timestamp('end_date'),
+  trialStartDate: timestamp('trial_start_date'),
+  trialEndDate: timestamp('trial_end_date'),
+  currentPeriodStart: timestamp('current_period_start').notNull(),
+  currentPeriodEnd: timestamp('current_period_end').notNull(),
+  cancelAtPeriodEnd: boolean('cancel_at_period_end').default(false),
+  pausedAt: timestamp('paused_at'),
+  canceledAt: timestamp('canceled_at'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
 });
 
 export type User = InferSelectModel<typeof users>;
