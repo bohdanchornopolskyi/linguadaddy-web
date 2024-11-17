@@ -20,5 +20,9 @@ export async function getProfile(userId: string) {
     where: eq(profiles.userId, userId),
   });
 
+  if (!profile) {
+    throw new Error('Profile not found');
+  }
+
   return profile;
 }
