@@ -82,6 +82,8 @@ export const subscriptions = pgTable('subscription', {
   status: text('status', {
     enum: ['active', 'past_due', 'canceled', 'paused', 'expired'],
   }).notNull(),
+  paddleCustomerId: text('paddleCustomerId').notNull(),
+  subscriptionId: text('subscriptionId').unique().notNull(),
   plan: subscriptionPlans('plan').notNull(),
   startDate: timestamp('start_date').notNull(),
   endDate: timestamp('end_date'),
@@ -100,3 +102,5 @@ export type User = InferSelectModel<typeof users>;
 export type Session = InferSelectModel<typeof sessions>;
 export type Account = typeof accounts.$inferSelect;
 export type Profile = InferInsertModel<typeof profiles>;
+export type Subscription = InferInsertModel<typeof subscriptions>;
+export type SubscriptionPlans = typeof subscriptionPlans.enumValues;
