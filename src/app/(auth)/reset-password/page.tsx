@@ -1,5 +1,6 @@
 'use client';
 
+import { use } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -19,11 +20,11 @@ import { resetPasswordSchema } from '@/actions/validation';
 import { resetPasswordAction } from '@/actions/emails';
 import { useRouter } from 'next/navigation';
 
-export default function ResetPasswordPage({
-  searchParams,
-}: {
-  searchParams: { token: string };
+export default function ResetPasswordPage(props: {
+  searchParams: Promise<{ token: string }>;
 }) {
+  const { searchParams: searchParamsPromise } = props;
+  const searchParams = use(searchParamsPromise);
   const router = useRouter();
   const { toast } = useToast();
   if (!searchParams.token) {

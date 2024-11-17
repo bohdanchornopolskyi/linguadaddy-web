@@ -1,9 +1,9 @@
 import { headers } from 'next/headers';
 import { PublicError } from '@/lib/errors';
 
-export function getIp() {
-  const forwardedFor = headers().get('x-forwarded-for');
-  const realIp = headers().get('x-real-ip');
+export async function getIp() {
+  const forwardedFor = (await headers()).get('x-forwarded-for');
+  const realIp = (await headers()).get('x-real-ip');
 
   if (forwardedFor) {
     return forwardedFor.split(',')[0].trim();
@@ -72,7 +72,7 @@ export async function rateLimitByIp({
   limit?: number;
   window?: number;
 }) {
-  const ip = getIp();
+  const ip = await getIp();
 
   if (!ip) {
     throw new PublicError('Rate limit exceeded');
