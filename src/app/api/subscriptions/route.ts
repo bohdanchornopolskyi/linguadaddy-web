@@ -1,4 +1,3 @@
-import { EVENT_TYPE } from '@/lib/constants';
 import { AuthenticationError, PublicError } from '@/lib/errors';
 import { getCurrentUser } from '@/lib/session';
 import { headers } from 'next/headers';
@@ -15,43 +14,45 @@ export async function POST(request: Request) {
     //   throw new AuthenticationError();
     // }
 
-    const signature = (await headers()).get('Paddle-Signature') as string;
+    const signature = (await headers()).get('Paddle-Signature');
+    const rawBody = await request.text();
 
     if (!signature) {
-      return Response.json({ error: 'Missing Paddle signature' });
+      return Response.json(
+        { error: 'Missing Paddle signature' },
+        { status: 400 }
+      );
     }
 
-    if (!request.body) {
-      return Response.json({ error: 'Missing request body' });
+    if (!rawBody) {
+      return Response.json({ error: 'Missing request body' }, { status: 400 });
     }
 
     const eventData = paddle.webhooks.unmarshal(
-      request.body.toString(),
-      env.PADDLE_PUBLIC_KEY,
+      rawBody,
+      env.PADDLE_SIGNATURE_KEY,
       signature
     );
 
     if (!eventData) {
-      return Response.json({ error: 'Invalid event data' });
+      return Response.json({ error: 'Invalid event data' }, { status: 400 });
     }
 
     switch (eventData.eventType) {
       case EventName.SubscriptionCreated:
-        console.log('Subscription created');
+        console.log('Subscription created', eventData);
         break;
       case EventName.SubscriptionUpdated:
-        console.log('Subscription updated');
+        console.log('Subscription updated', eventData);
         break;
-      case EventName.SubscriptionCancelled:
-        console.log('Subscription cancelled');
+      case EventName.SubscriptionCanceled:
+        console.log('Subscription cancelled', eventData);
         break;
       default:
-        console.log('default');
+        console.log('Unhandled event type:', eventData.eventType);
     }
 
-    const body = await request.json();
-
-    return Response.json({ message: 'Hello, world!' });
+    return Response.json({ success: true });
   } catch (error) {
     if (error instanceof PublicError) {
       return Response.json({ error: error.message });

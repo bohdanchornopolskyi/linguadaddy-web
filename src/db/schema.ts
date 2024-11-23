@@ -18,7 +18,7 @@ export const subscriptionPlans = pgEnum('plans', [
 
 export const users = pgTable('user', {
   id: uuid('id').defaultRandom().primaryKey(),
-  email: text('email').unique(),
+  email: text('email').unique().notNull(),
   emailVerified: timestamp('emailVerified', { mode: 'date' }),
 });
 
