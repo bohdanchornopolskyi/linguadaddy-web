@@ -18,14 +18,14 @@ type ProfileProps = {
 export default async function Profile({ userId }: ProfileProps) {
   const profile = await getProfile(userId);
 
-  // TODO: add fallback functionality
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
           <AvatarImage image={profile?.image} />
-          <AvatarFallback>AA</AvatarFallback>
+          <AvatarFallback className="w-full h-full flex items-center justify-center">
+            {profile?.displayName?.slice(0, 2).toUpperCase()}
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end">
