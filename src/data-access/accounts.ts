@@ -3,6 +3,7 @@ import { accounts } from '@/db/schema';
 import { and, eq } from 'drizzle-orm';
 import crypto from 'crypto';
 import { ITERATIONS } from '@/lib/constants';
+import { PublicError } from '@/lib/errors';
 
 export async function hashPassword(plainTextPassword: string, salt: string) {
   return new Promise<string>((resolve, reject) => {
@@ -39,6 +40,10 @@ export async function getAccountByUserId(userId: string) {
   const account = await database.query.accounts.findFirst({
     where: eq(accounts.userId, userId),
   });
+
+  if (!account) {
+    throw new PublicError('Account not found');
+  }
 
   return account;
 }

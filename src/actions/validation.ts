@@ -67,7 +67,6 @@ export const updateProfileImageSchema = z.object({
 });
 
 export const updateProfileSchema = z.object({
-  userId: z.string(),
   displayName: z
     .string()
     .min(2, { message: 'Display name is required' })
@@ -123,3 +122,20 @@ export const forgotPasswordSchema = z.object({
     .min(1, { message: 'This field is required' })
     .email({ message: 'Invalid email' }),
 });
+
+export const updatePasswordSchema = z
+  .object({
+    currentPassword: z.string().min(8, {
+      message: 'Password must be at least 8 characters.',
+    }),
+    newPassword: z.string().min(8, {
+      message: 'Password must be at least 8 characters.',
+    }),
+    confirmPassword: z.string().min(8, {
+      message: 'Password must be at least 8 characters.',
+    }),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  });
