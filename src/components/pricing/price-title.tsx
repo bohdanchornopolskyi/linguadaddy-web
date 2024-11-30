@@ -1,4 +1,4 @@
-import { Tier } from '@/constants/pricing-tier';
+import { Tier } from '@/lib/constants';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
@@ -21,7 +21,7 @@ export function PriceTitle({ tier }: Props) {
       {featured && (
         <div
           className={
-            'flex items-center px-3 py-1 rounded-xs border border-secondary-foreground/10 text-[14px] h-[29px] leading-[21px] featured-card-badge'
+            'flex items-center px-3 py-1 rounded border border-secondary-foreground/10 text-[14px] h-[29px] leading-[21px] featured-card-badge'
           }
         >
           Most popular

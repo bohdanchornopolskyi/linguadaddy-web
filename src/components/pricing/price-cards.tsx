@@ -1,11 +1,15 @@
 import { PricingTier, IBillingFrequency } from '@/lib/constants';
-import { FeaturesList } from '@/components/pricing/features-list';
 import { PriceAmount } from '@/components/pricing/price-amount';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { PriceTitle } from '@/components/pricing/price-title';
-import { Separator } from '@/components/ui/separator';
-import { FeaturedCardGradient } from '@/components/pricing/featured-card-gradient';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { CheckIcon } from 'lucide-react';
 import Link from 'next/link';
 
 interface Props {
@@ -16,21 +20,11 @@ interface Props {
 
 export function PriceCards({ loading, frequency, priceMap }: Props) {
   return (
-    <div className="isolate mx-auto grid grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+    <div className="isolate mx-auto grid grid-cols-1 gap-8 lg:mx-0 lg:max-w-3xl lg:grid-cols-2">
       {PricingTier.map((tier) => (
-        <div
-          key={tier.id}
-          className={cn(
-            'rounded-lg bg-background/70 backdrop-blur-[6px] overflow-hidden'
-          )}
-        >
-          <div
-            className={cn(
-              'flex gap-5 flex-col rounded-lg rounded-b-none pricing-card-border'
-            )}
-          >
-            {tier.featured && <FeaturedCardGradient />}
-            <PriceTitle tier={tier} />
+        <Card key={tier.name} className="flex flex-col justify-between">
+          <CardHeader className="text-center pb-4">
+            <CardTitle className="mb-7">{tier.name}</CardTitle>
             <PriceAmount
               loading={loading}
               tier={tier}
@@ -38,22 +32,28 @@ export function PriceCards({ loading, frequency, priceMap }: Props) {
               value={frequency.value}
               priceSuffix={frequency.priceSuffix}
             />
-            <div className={'px-8'}>
-              <Separator className={'bg-border'} />
-            </div>
-            <div className={'px-8 text-[16px] leading-[24px]'}>
-              {tier.description}
-            </div>
-          </div>
-          <div className={'px-8 mt-8'}>
-            <Button className={'w-full'} variant={'secondary'} asChild={true}>
+          </CardHeader>
+          <CardDescription className="text-center px-6">
+            {tier.description}
+          </CardDescription>
+          <CardContent>
+            <ul className={'p-8 flex flex-col gap-4'}>
+              {tier.features.map((feature: string) => (
+                <li key={feature} className="flex gap-x-3">
+                  <CheckIcon className={'h-6 w-6 text-muted-foreground'} />
+                  <span className={'text-base'}>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+          <CardFooter className="">
+            <Button className="w-full" variant={'outline'}>
               <Link href={`/checkout/${tier.priceId[frequency.value]}`}>
                 Get started
               </Link>
             </Button>
-          </div>
-          <FeaturesList tier={tier} />
-        </div>
+          </CardFooter>
+        </Card>
       ))}
     </div>
   );
