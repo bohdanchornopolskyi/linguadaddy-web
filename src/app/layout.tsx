@@ -7,6 +7,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import { SessionProvider } from '@/providers/session-provider';
 import { validateRequest } from '@/auth';
+import Footer from '@/components/shared/footer/footer';
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -27,7 +28,7 @@ export default async function RootLayout({
         <div
           className={cn(
             openSans.className,
-            'min-h-screen w-full flex flex-col'
+            'min-h-screen w-full flex flex-col overflow-x-hidden'
           )}
         >
           <ThemeProvider
@@ -39,6 +40,7 @@ export default async function RootLayout({
             <SessionProvider value={session}>
               <Header />
               {children}
+              <Footer />
               <Toaster />
             </SessionProvider>
           </ThemeProvider>

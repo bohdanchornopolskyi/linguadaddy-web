@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/accordion';
 import { Brain, Gamepad2, Globe } from 'lucide-react';
 import { Pricing } from '@/components/pricing/pricing';
-import './pricing/pricing.css';
+import Link from 'next/link';
 
 export default async function Home() {
   return (
@@ -47,10 +47,7 @@ function HeroSection() {
           </div>
           <div className="space-x-4">
             <Button size={'lg'} variant="default">
-              Get Started for Free
-            </Button>
-            <Button size={'lg'} variant="outline">
-              Learn More
+              <Link href={'/signup'}>Get Started for Free</Link>
             </Button>
           </div>
         </div>
@@ -61,10 +58,7 @@ function HeroSection() {
 
 function FeaturesSection() {
   return (
-    <section
-      id="features"
-      className="w-full py-12 md:py-24 lg:py-32 bg-background"
-    >
+    <section id="features" className="w-full py-12 md:py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">
           Powerful Features
@@ -114,10 +108,7 @@ function FeaturesSection() {
 
 function FAQSection() {
   return (
-    <section
-      id="faq"
-      className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800"
-    >
+    <section id="faq" className="w-full py-12 md:py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">
           Frequently Asked Questions
