@@ -15,15 +15,17 @@ export async function Header() {
   // }
 
   return (
-    <div className="w-full p-4 max-w-7xl mx-auto flex items-center justify-between">
-      <Link href={user ? '/dashboard' : '/'}>
-        <span className={cn('text-2xl font-bold', libre.className)}>
-          Saas Starter
-        </span>
-      </Link>
-      <div className="flex items-center gap-4">
-        <ThemeToggle />
-        {user ? <Profile userId={user.id} /> : <SignInButton />}
+    <div className="w-screen bg-background py-3 shadow sticky top-0 z-10">
+      <div className="w-full p-4 max-w-7xl mx-auto flex items-center justify-between">
+        <Link href={user ? '/dashboard' : '/'}>
+          <span className={cn('text-2xl font-bold', libre.className)}>
+            Saas Starter
+          </span>
+        </Link>
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+          {user ? <Profile userId={user.id} /> : <SignInButton />}
+        </div>
       </div>
     </div>
   );
