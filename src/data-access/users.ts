@@ -1,6 +1,9 @@
 import { getAccountByUserId, hashPassword } from '@/data-access/accounts';
+import { getProfile } from '@/data-access/profiles';
 import { database } from '@/db';
 import { User, users } from '@/db/schema';
+import { AuthenticationError } from '@/lib/errors';
+import { getCurrentUser } from '@/lib/session';
 import { eq } from 'drizzle-orm';
 
 export async function createUser(email: string) {
@@ -55,4 +58,13 @@ export async function verifyPassword(email: string, plainTextPassword: string) {
 
   const hash = await hashPassword(plainTextPassword, salt);
   return account.password === hash;
+}
+
+export async function getUserWithProfile() {
+  const user = await getCurrentUser();
+  if (!user) {
+    throw new AuthenticationError();
+  }
+  const profile = await getProfile(user.id);
+  return { user, profile };
 }

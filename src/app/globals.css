@@ -31,11 +31,11 @@
     --radius: 0.5rem;
   }
 
-  body {
+  /* body {
     background-image: radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
     background-size: 40px 40px;
     background-position: -19px -19px;
-  }
+  } */
 
   .dark {
     --background: 0 0% 12.5%;
@@ -63,14 +63,14 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
 
-    body {
+    /* body {
       background-image: radial-gradient(
         rgba(255, 255, 255, 0.15) 1px,
         transparent 0
       );
       background-size: 40px 40px;
       background-position: -19px -19px;
-    }
+    } */
   }
 }
 @layer base {

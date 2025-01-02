@@ -16,6 +16,7 @@ import { createUUID } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 import { updatePassword } from '@/data-access/accounts';
 import { verifyPassword } from '@/data-access/users';
+
 export const updateProfileAction = authenticatedAction
   .schema(updateProfileSchema)
   .action(async ({ parsedInput: { displayName, image } }) => {

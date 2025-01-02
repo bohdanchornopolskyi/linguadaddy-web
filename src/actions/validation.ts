@@ -1,3 +1,4 @@
+import { languages } from '@/db/schema';
 import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '@/lib/constants';
 import { z } from 'zod';
 
@@ -139,3 +140,24 @@ export const updatePasswordSchema = z
     message: 'Passwords do not match',
     path: ['confirmPassword'],
   });
+
+export const addLanguageSchema = z.object({
+  language: z.string().min(1, { message: 'Language is required' }),
+  code: z.string().min(1, { message: 'Code is required' }),
+});
+
+export const createDictionaryEntrySchema = z.object({
+  word: z.string().min(1, { message: 'Word is required' }),
+  translation: z.string().min(1, { message: 'Translation is required' }),
+  languageId: z.string().min(1, { message: 'Language is required' }),
+});
+
+export const updateDictionaryEntrySchema = z.object({
+  id: z.string().min(1, { message: 'Id is required' }),
+  word: z.string().min(1, { message: 'Word is required' }),
+  translation: z.string().min(1, { message: 'Translation is required' }),
+});
+
+export const deleteDictionaryEntrySchema = z.object({
+  id: z.string().min(1, { message: 'Id is required' }),
+});
