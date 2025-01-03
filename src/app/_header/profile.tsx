@@ -10,6 +10,9 @@ import { AvatarFallback } from '@radix-ui/react-avatar';
 import { Avatar as AvatarImage } from '@/app/_header/avatar';
 import { getProfile } from '@/data-access/profiles';
 import Link from 'next/link';
+import { GlobalLanguage } from './global-language';
+import { getLanguagesForUser } from '@/data-access/languages';
+import { updateProfile } from '@/data-access/profiles';
 
 type ProfileProps = {
   userId: string;
@@ -17,6 +20,12 @@ type ProfileProps = {
 
 export default async function Profile({ userId }: ProfileProps) {
   const profile = await getProfile(userId);
+  const languages = await getLanguagesForUser(userId);
+
+  async function handleLanguageChange(languageId: string) {
+    'use server';
+    await updateProfile(userId, { defaultLanguageId: languageId });
+  }
 
   return (
     <DropdownMenu>
@@ -36,6 +45,15 @@ export default async function Profile({ userId }: ProfileProps) {
         <DropdownMenuItem asChild className="cursor-pointer">
           <Link href="/settings">Settings</Link>
         </DropdownMenuItem>
+        {languages.length > 0 && (
+          <GlobalLanguage
+            languages={languages}
+            defaultLanguageId={
+              profile.defaultLanguageId || languages[0].languageId
+            }
+            onLanguageChange={handleLanguageChange}
+          />
+        )}
         <SignOut />
       </DropdownMenuContent>
     </DropdownMenu>
