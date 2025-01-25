@@ -23,6 +23,7 @@ export default async function Profile({ userId }: ProfileProps) {
   const languages = await getLanguagesForUser(userId);
 
   async function handleLanguageChange(languageId: string) {
+    // TODO: change to authenticated action
     'use server';
     await updateProfile(userId, { defaultLanguageId: languageId });
   }

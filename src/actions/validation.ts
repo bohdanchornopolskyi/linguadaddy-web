@@ -161,3 +161,24 @@ export const updateDictionaryEntrySchema = z.object({
 export const deleteDictionaryEntrySchema = z.object({
   id: z.string().min(1, { message: 'Id is required' }),
 });
+
+export const createSetSchema = z.object({
+  name: z.string().min(1),
+  languageId: z.string().uuid(),
+});
+
+export const updateSetSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(1),
+  languageId: z.string().uuid(),
+});
+
+export const addWordToSetSchema = z.object({
+  setId: z.string().uuid(),
+  words: z.array(
+    z.object({
+      word: z.string(),
+      translation: z.string(),
+    })
+  ),
+});

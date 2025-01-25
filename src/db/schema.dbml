@@ -1,0 +1,111 @@
+Enum account_type {
+  email
+  google
+  github
+}
+
+Enum subscription_plan {
+  fluent
+  polyglot
+}
+
+Table users {
+  id uuid [pk]
+  email text [unique, not null]
+  emailVerified timestamp
+}
+
+Table accounts {
+  id uuid [pk]
+  userId uuid [ref: > users.id, not null]
+  accountType account_type [not null]
+  githubId text [unique]
+  googleId text [unique]
+  password text
+  salt text
+}
+
+Table sessions {
+  id text [pk]
+  user_id uuid [ref: > users.id, not null]
+  expires_at timestamp [not null]
+}
+
+Table profiles {
+  id uuid [pk]
+  userId uuid [ref: > users.id, not null]
+  displayName text
+  image text
+  default_language_id uuid [ref: > languages.id]
+}
+
+Table verify_email_tokens {
+  id uuid [pk]
+  userId uuid [ref: > users.id, not null, unique]
+  token text
+  tokenExpiresAt timestamp
+}
+
+Table reset_tokens {
+  id uuid [pk]
+  userId uuid [ref: > users.id, not null, unique]
+  token text
+  tokenExpiresAt timestamp
+}
+
+Table subscriptions {
+  id uuid [pk]
+  userId uuid [ref: > users.id, not null]
+  status text [not null]
+  paddleCustomerId text [not null]
+  subscriptionId text [unique, not null]
+  plan subscription_plan [not null]
+  start_date timestamp [not null]
+  end_date timestamp
+  trial_start_date timestamp
+  trial_end_date timestamp
+  current_period_start timestamp [not null]
+  current_period_end timestamp [not null]
+  cancel_at_period_end boolean
+  paused_at timestamp
+  canceled_at timestamp
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table user_languages {
+  id uuid [pk]
+  user_id uuid [ref: > users.id, not null]
+  language_id uuid [not null]
+  created_at timestamp
+}
+
+Table languages {
+  id uuid [pk]
+  name text [not null]
+  code text [unique, not null]
+}
+
+Table dictionaries {
+  id uuid [pk]
+  user_id uuid [ref: > users.id, not null]
+  language_id uuid [ref: > languages.id, not null]
+  word text [not null]
+  translation text [not null]
+  created_at timestamp
+}
+
+Table sets {
+  id uuid [pk]
+  user_id uuid [ref: > users.id, not null]
+  language_id uuid [ref: > languages.id, not null]
+  name text [not null]
+  created_at timestamp
+}
+
+Table set_words {
+  id uuid [pk]
+  set_id uuid [ref: > sets.id, not null]
+  word_id uuid [ref: > dictionaries.id, not null]
+  added_at timestamp
+}

@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { DictionaryModal } from '@/components/dictionary/dictionary-modal';
 import { deleteDictionaryEntryAction } from '@/actions/dictionaries';
 import { useAction } from 'next-safe-action/hooks';
+import DeleteDialog from '@/components/shared/delete-dialog';
 
 type DictionaryEntry = {
   id: string;
@@ -57,23 +58,11 @@ function TableRowTemplate({ entry }: { entry: DictionaryEntry }) {
           </Button>
         </TableCell>
       </TableRow>
-      <AlertDialog open={isDeleteDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the
-              word from your dictionary.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setIsDeleteDialogOpen(false)}>
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <DeleteDialog
+        isDeleteDialogOpen={isDeleteDialogOpen}
+        setIsDeleteDialogOpen={setIsDeleteDialogOpen}
+        handleDelete={handleDelete}
+      />
     </>
   );
 }
